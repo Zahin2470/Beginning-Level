@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@stomp/stompjs@7.0.0/bundles/stomp.umd.min.js"></script>
+    <!-- <script src="/app.js"></script> -->
+    <title>Document</title>
+
+    <link rel="stylesheet" href="./toastify.css" />
+    <link rel="stylesheet" href="./style.css" />
+    <script src="./toastify.js"></script>
+  </head>
+  <body>
+    <div id="login-container">
+      <div id="left-column"></div>
+      <div id="branding">
+        <img src="./images/logo.png" />
+        <h1>Register - Chat Application</h1>
+      </div>
+      <div id="#add-user-modal">
+        <form
+          id="add-user-form"
+          class="grid"
+          style="display: grid; grid-gap: 1rem"
+        >
+          <input type="text" id="name" placeholder="enter name" name="name" />
+          <p class="block error name-error"></p>
+
+          <input
+            type="text"
+            id="email"
+            placeholder="enter email"
+            name="email"
+          />
+          <p class="error email-error"></p>
+
+          <input
+            type="text"
+            id="mobile"
+            placeholder="enter mobile"
+            name="mobile"
+          />
+          <p class="error mobile-error"></p>
+
+          <input
+            type="password"
+            id="password"
+            placeholder="enter password"
+            name="password"
+          />
+          <p class="error password-error"></p>
+
+          <p class="error common-error"></p>
+
+          <input type="submit" id="submit" value="Submit" />
+          />
+        </form>
+      </div>
+    </div>
+
+    <script>
+      const modal = document.querySelector("#add-user-modal");
+      const form = document.querySelector("#add-user-form");
+
+      // success toast
+      const successToast = Toastify({
+        text: "User was added successfully! Reloading the list...",
+        duration: 1000,
+      });
+
+      const errorToast = Toastify({
+        text: "User already exist!!!",
+        duration: 1000,
+      });
+
+      // function closeModal() {
+      //   modal.style.display = "none";
+      // }
+      // function openModal() {
+      //   modal.style.display = "block";
+      // }
+      function handleSubmit() {
+        // console.log("New function activated");
+        // const formData = new FormData(form);
+        // console.log("Hey " + Object.fromEntries(formData));
+        // let o = {
+        //   username: "",
+        //   name: "",
+        //   email: "",
+        //   mobile: "",
+        //   password: "",
+        // };
+        // for (var pair of formData.entries()) {
+        //   let p = pair[0];
+        //   o.p = pair[1];
+        //   console.log(pair[0] + o.p);
+        // }
+
+        fetch("http://localhost:8080/register/", {
+          method: "POST",
+          body: JSON.stringify({
+            // username: $("#email").val(),
+            id: $("#email").val() + $("#mobile").val() + "2023",
+            mobile: $("#mobile").val(),
+            email: $("#email").val(),
+            password: $("#password").val(),
+            name: $("#name").val(),
+          }),
+          headers: {
+            "Content-type": "application/json; charset=UTF-8",
+          },
+        })
+          .then((response) => {
+            return response.json();
+          })
+          .then((data) => {
+            console.log(data);
+            if (data.status) {
+              // Toastify("Congratulations!!");
+              // successToast();
+              successToast.showToast();
+              // location.replace("http://localhost:8080/");
+            } else {
+              errorToast.errorToast();
+            }
+          });
+        // .catch((error) => console.error(error));
+      }
+
+      // form submit handler
+      // form.onsubmit = async function (event) {
+      //   event.preventDefault();
+
+      //   // clear errors first
+      //   const errorPlaceholders = document.querySelectorAll("p.error");
+      //   for (let i = 0; i < errorPlaceholders.length; i++) {
+      //     errorPlaceholders[i].style.display = "none";
+      //   }
+
+      //   const inputErrors = document.querySelectorAll("input.error");
+      //   if (inputErrors.length > 0) {
+      //     for (let j = 0; j < inputErrors.length; j++) {
+      //       inputErrors[j].classList.remove("error");
+      //     }
+      //   }
+
+      //   // prepare the form data
+      //   const formData = new FormData(form);
+      //   console.log("Hey " + Object.fromEntries(formData));
+      //   let o = {
+      //     username: "",
+      //     name: "",
+      //     email: "",
+      //     mobile: "",
+      //     password: "",
+      //   };
+      //   for (var pair of formData.entries()) {
+      //     let p = pair[0];
+      //     o.p = pair[1];
+      //     console.log(pair[0]);
+      //   }
+
+      //   // send the request to server
+      //   // let response = await fetch("http://localhost:8080/register/", {
+      //   //   method: "POST",
+      //   //   body: JSON.stringify(
+      //   //     //   {
+      //   //     //   username: o.username,
+      //   //     //   email: o.email,
+      //   //     //   mobile: o.mobile,
+      //   //     //   name: o.name,
+      //   //     //   password: o.password,
+      //   //     // }
+      //   //     {
+      //   //       username: "helo",
+      //   //       password: "123",
+      //   //       email: "kjashdjka",
+      //   //       mobile: "0154564",
+      //   //     }
+      //   //   ),
+      //   //   headers: {
+      //   //     "Content-type": "application/json; charset=UTF-8",
+      //   //   },
+      //   // });
+      //   // console.log(formData);
+
+      //   fetch("http://localhost:8080/register/", {
+      //     method: "POST",
+      //     body: JSON.stringify({
+      //       username: "helo",
+      //       password: "123",
+      //       email: "kjashdjka",
+      //       mobile: "0154564",
+      //     }),
+      //     headers: {
+      //       "Content-type": "application/json; charset=UTF-8",
+      //     },
+      //   })
+      //     .then((response) => response.json())
+      //     .then((json) => {
+      //       console.log("json " + json);
+      //       // jQuery(window).load(function () {
+
+      //       // });
+      //       // $(window).on("load", function () {
+      //       // sessionStorage.setItem("status", "loggedIn");
+      //       // });
+
+      //       // location.replace("http://localhost:8080/");
+      //     });
+
+      //   // get response
+      //   let result = await response.json();
+
+      //   // handle error and response
+      //   if (result.errors) {
+      //     // errors
+      //     Object.keys(result.errors).forEach((fieldName) => {
+      //       // add error class to all inputs
+      //       form[fieldName].classList.add("error");
+
+      //       // set all error placeholders (p tag) textContent
+      //       const errorPlaceholder = document.querySelector(
+      //         `.${fieldName}-error`
+      //       );
+      //       errorPlaceholder.textContent = result.errors[fieldName].msg;
+
+      //       // make all placeholders visible
+      //       errorPlaceholder.style.display = "block";
+      //     });
+      //   } else {
+      //     // success
+      //     successToast.showToast();
+      //     // closeModal();
+      //     document.querySelector("p.error").style.display = "none";
+
+      //     // reload the page after 1 second
+      //     setTimeout(() => {
+      //       // location.reload();
+      //     }, 1000);
+      //   }
+      // };
+      $(function () {
+        $("form").on("submit", (e) => e.preventDefault());
+        // $("#connect").click(() => connect());
+        // $("#disconnect").click(() => disconnect());
+        // $("#send").click(() => sendName());
+        // $("#message2").click(() => sendMessage());
+        $("#submit").click(() => handleSubmit());
+      });
+    </script>
+  </body>
+</html>
