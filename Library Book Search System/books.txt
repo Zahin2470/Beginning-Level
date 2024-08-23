@@ -1,0 +1,44 @@
+Algorithms,2,3
+Artificial Intelligence,5,6
+Automata Theory,3,7
+Big Data,6,1
+Blockchain,4,8
+Cloud Computing,5,3
+Computer Graphics,3,10
+Cryptography,8,4
+Cyber Security,2,8
+Data Mining,7,2
+Data Structures,1,1
+Database Systems,6,11
+Deep Learning,9,5
+Design Patterns,4,12
+Distributed Systems,7,8
+Ethical Hacking,5,10
+Game Development,6,14
+Human-Computer Interaction,8,1
+Information Retrieval,9,9
+Internet of Things,7,12
+Machine Learning,5,14
+Mobile Computing,10,3
+Natural Language Processing,8,8
+Neural Networks,6,5
+Operating Systems,4,2
+Parallel Computing,10,10
+Programming Languages,0,0
+Quantum Computing,7,14
+Robotics,8,11
+Software Engineering,3,4
+Software Testing,9,2
+System Design,10,8
+Theoretical Computer Science,11,5
+Virtual Reality,12,1
+Web Development,11,9
+3D Printing,13,4
+Agile Methodologies,12,7
+Algorithms in C,10,12
+Bioinformatics,11,11
+Computer Vision,12,13
+Cyber-Physical Systems,14,2
+Edge Computing,13,10
+Embedded Systems,14,5
+Smart Cities,12,11
